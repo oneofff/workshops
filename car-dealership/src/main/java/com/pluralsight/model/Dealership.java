@@ -1,8 +1,9 @@
-package com.pluralsight;
+package com.pluralsight.model;
 
 import lombok.Getter;
 import lombok.Setter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,7 +13,7 @@ public class Dealership {
     private String name;
     private String address;
     private String phone;
-    private ArrayList<Vehicle> inventory;
+    private List<Vehicle> inventory;
 
     public Dealership(String name, String address, String phone) {
         this.name = name;
@@ -21,44 +22,63 @@ public class Dealership {
         this.inventory = new ArrayList<>();
     }
 
+    public Dealership(String[] dealershipDetails) {
+        if (dealershipDetails == null || dealershipDetails.length != 3) {
+            throw new IllegalArgumentException("Invalid dealership details: " + (dealershipDetails == null ? "null" : String.join(", ", dealershipDetails)));
+        }
+        this.name = dealershipDetails[0].trim();
+        this.address = dealershipDetails[1].trim();
+        this.phone = dealershipDetails[2].trim();
+        this.inventory = new LinkedList<>();
+    }
+
     public List<Vehicle> getVehiclesByPrice(double minPrice, double maxPrice) {
         return inventory.stream()
-                .filter(v -> v.getPrice() >= minPrice && v.getPrice() <= maxPrice)
+                .filter(v -> v.getPrice() >= minPrice &&
+                        v.getPrice() <= maxPrice &&
+                        v.isAvailable())
                 .collect(Collectors.toList());
     }
 
     public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
         return inventory.stream()
-                .filter(v -> v.getMake().equalsIgnoreCase(make) && v.getModel().equalsIgnoreCase(model))
+                .filter(v -> v.getMake().equalsIgnoreCase(make) &&
+                        v.getModel().equalsIgnoreCase(model) &&
+                        v.isAvailable())
                 .collect(Collectors.toList());
     }
 
     public List<Vehicle> getVehiclesByYear(int minYear, int maxYear) {
         return inventory.stream()
-                .filter(v -> v.getYear() >= minYear && v.getYear() <= maxYear)
+                .filter(v -> v.getYear() >= minYear &&
+                        v.getYear() <= maxYear
+                        && v.isAvailable())
                 .collect(Collectors.toList());
     }
 
     public List<Vehicle> getVehiclesByColor(String color) {
         return inventory.stream()
-                .filter(v -> v.getColor().equalsIgnoreCase(color))
+                .filter(v -> v.getColor().equalsIgnoreCase(color)
+                        && v.isAvailable())
                 .collect(Collectors.toList());
     }
 
     public List<Vehicle> getVehiclesByMileage(int minMileage, int maxMileage) {
         return inventory.stream()
-                .filter(v -> v.getOdometer() >= minMileage && v.getOdometer() <= maxMileage)
+                .filter(v -> v.getOdometer() >= minMileage && v.getOdometer() <= maxMileage
+                        && v.isAvailable())
                 .collect(Collectors.toList());
     }
 
     public List<Vehicle> getVehiclesByType(String vehicleType) {
         return inventory.stream()
-                .filter(v -> v.getVehicleType().equalsIgnoreCase(vehicleType))
+                .filter(v -> v.getVehicleType().equalsIgnoreCase(vehicleType)
+                        && v.isAvailable())
                 .collect(Collectors.toList());
     }
 
     public List<Vehicle> getAllVehicles() {
-        return new ArrayList<>(this.inventory);
+        return List.copyOf(inventory);
     }
 
     public void addVehicle(Vehicle vehicle) {
@@ -78,5 +98,22 @@ public class Dealership {
                 .filter(v -> v.getVin() == vin)
                 .findFirst()
                 .orElse(null);
+    }
+
+    public String getCsvRepresentation(String outputDelimiter) {
+        //dealer|address|phone;
+       return String.join(outputDelimiter,
+                name,
+                address,
+                phone);
+    }
+
+    public void changeVehicleStatus(Vehicle vehicle, String s) {
+        if (vehicle != null) {
+            inventory.stream()
+                    .filter(v -> v.getVin() == vehicle.getVin())
+                    .findFirst()
+                    .ifPresent(v -> v.setStatus(s));
+        }
     }
 }

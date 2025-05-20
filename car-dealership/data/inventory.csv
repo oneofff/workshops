@@ -1,0 +1,6 @@
+dealer|address|phone
+D & B Used Cars|111 Old Benbrook Rd|817-555-5555
+id|year|make|model|type|color|mileage|price|availability
+44901|2012|Honda|Civic|SUV|Gray|103221|6995.00|leased
+44902|2015|Honda|Civic|SUV|Gray|1032111|69925.00|available
+44903|2013|Honda|Civic|SUV|Gray|1032111|691925.00|leased
