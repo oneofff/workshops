@@ -383,6 +383,7 @@ public class Turtle {
      * @param angle in degrees; 0 is right, 90 is up, etc
      */
     public void setHeading(double angle) {
+        angle = - angle; // change to use math angle
         this.theta = angle*Math.PI/180;
         world.turtleMoved();
         this.pause();

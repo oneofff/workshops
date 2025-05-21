@@ -3,6 +3,7 @@ package com.pluralsight;
 import com.pluralsight.model.Circle;
 import com.pluralsight.model.Shape;
 import com.pluralsight.model.Square;
+import com.pluralsight.model.Triangle;
 import com.pluralsight.paint.Turtle;
 import com.pluralsight.paint.World;
 
@@ -38,7 +39,11 @@ public class Main {
 
         Circle circle = new Circle(250);
         circle.paint();
+
         Square square = new Square(100);
         square.paint();
+
+        Triangle triangle = new Triangle(100);
+        triangle.paint();
     }
 }
