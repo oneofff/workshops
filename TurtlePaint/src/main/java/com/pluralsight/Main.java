@@ -1,9 +1,7 @@
 package com.pluralsight;
 
-import com.pluralsight.model.Circle;
+import com.pluralsight.model.*;
 import com.pluralsight.model.Shape;
-import com.pluralsight.model.Square;
-import com.pluralsight.model.Triangle;
 import com.pluralsight.paint.Turtle;
 import com.pluralsight.paint.World;
 
@@ -45,5 +43,8 @@ public class Main {
 
         Triangle triangle = new Triangle(100);
         triangle.paint();
+
+        Hexagon hexagon = new Hexagon(100);
+        hexagon.paint();
     }
 }

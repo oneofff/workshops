@@ -15,7 +15,6 @@ public class Triangle extends Shape {
     @Override
     public void paint() {
         Turtle t = getTurtle();
-        t.setDelay(3);
         t.setHeading(60);
         for (int k = 0; k < 3; k++) {
             t.forward(sideLength);
