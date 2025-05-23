@@ -1,24 +1,38 @@
 package com.pluralsight.model;
 
 import com.pluralsight.paint.Turtle;
-import com.pluralsight.paint.World;
 import org.javatuples.Pair;
+
+import java.awt.*;
 
 public class Square extends Shape {
     private final double sideLength;
 
-    public Square(double sideLength) {
-        super(new Turtle(new World(1000, 1000)), new Pair<>(25.0, 15.0), "PINK", 1.0);
+    public Square(Turtle turtle, Pair<Double, Double> location, Color color, double borderWidth, double sideLength) {
+        super(turtle, location, color, borderWidth);
         this.sideLength = sideLength;
     }
 
     @Override
     public void paint() {
+        setCenterOfSquare();
         getTurtle().penDown();
         for (int i = 0; i <= 4; i++) {
             getTurtle().forward(sideLength);
             getTurtle().turnLeft(90);
         }
         getTurtle().penUp();
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    private void setCenterOfSquare() {
+        double l = sideLength;
+        double cx = l / 2;
+        double cy = l / 2;
+
+        Turtle t = getTurtle();
+        t.penUp();
+        t.goTo(getLocation().getValue0() - cx, getLocation().getValue1() - cy);
+        t.penDown();
     }
 }

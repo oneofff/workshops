@@ -4,47 +4,28 @@ import com.pluralsight.model.*;
 import com.pluralsight.model.Shape;
 import com.pluralsight.paint.Turtle;
 import com.pluralsight.paint.World;
+import org.javatuples.Pair;
 
 import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-//        // Create a world 600x600 with white background
-//        World world = new World(600, 600);
-//
-//        // Create a turtle in the center
-//        Turtle t = new Turtle(world);
-//        t.setColor(Color.BLACK);
-//        // Make it draw quickly
-//        t.setDelay(0);
-//
-//        // Circle parameters
-//        double radius = 150;          // pixels
-//        int    steps  = 360;          // number of segments
-//        double step   = 2 * Math.PI * radius / steps;   // length of each forward move
-//        double turn   = 360.0 / steps;                  // angle to turn after each step
-//
-//        // Move to the circle’s starting point (top of the circle)
-//        t.penUp();
-//        t.setHeading(0);      // face right
-//        t.penDown();
-//
-//        // Draw the circle
-//        for (int i = 0; i < steps; i++) {
-//            t.forward(step);
-//            t.turnRight(turn);
-//        }
+        World world = new World(1000, 1000);
+        Turtle turtle = new Turtle(world);
 
-        Circle circle = new Circle(250);
+        Circle circle = new Circle(turtle, new Pair<>(0.0, 0.0), Color.RED, 1.0, 100);
         circle.paint();
 
-        Square square = new Square(100);
+        Square square = new Square(turtle, new Pair<>(0.0, 0.0), Color.BLUE, 1.0, 100);
         square.paint();
 
-        Triangle triangle = new Triangle(100);
+        Triangle triangle = new Triangle(turtle, new Pair<>(0.0, 0.0), Color.GREEN, 1.0, 150);
         triangle.paint();
 
-        Hexagon hexagon = new Hexagon(100);
+        Hexagon hexagon = new Hexagon(turtle, new Pair<>(0.0, 0.0), Color.RED, 1.0, 100);
         hexagon.paint();
+
+        turtle.penUp();
+        turtle.goTo(0, 0);
     }
 }

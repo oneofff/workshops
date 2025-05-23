@@ -11,10 +11,10 @@ import java.awt.*;
 public abstract class Shape {
     private final Turtle turtle;
     private final Pair<Double, Double> location;
-    private final String color;
+    private final Color color;
     private final double borderWidth;
 
-    public Shape(Turtle turtle, Pair<Double, Double> location, String color, double borderWidth) {
+    public Shape(Turtle turtle, Pair<Double, Double> location, Color color, double borderWidth) {
         this.turtle = turtle;
         this.location = location;
         this.color = color;
@@ -26,10 +26,9 @@ public abstract class Shape {
 
     protected void setEnvironment() {
         this.turtle.penUp();
-        this.turtle.setColor(Color.PINK);
         this.turtle.setDelay(0);
+        this.turtle.setColor(this.color);
         this.turtle.goTo(location.getValue0(), location.getValue1());
         this.turtle.penDown();
-
     }
 }
